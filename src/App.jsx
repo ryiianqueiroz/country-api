@@ -3,7 +3,7 @@ import Country from "./components/Country/Country"
 
 function App() {
   return (
-    <div className="font-customFont bg-gray-200 min-h-full">
+    <div className="font-customFont bg-gray-200 min-h-full relative">
       <Nav/>
       <Country></Country>
     </div>

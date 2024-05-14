@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 
 function CountryPage() {
     
     const [api, setApi] = useState([]);
+
+    let location = useLocation();
+
+    let ccn3 = location.pathname.replaceAll("/", "")
 
     let { nome, flag, population, region, sub_region, capital, top_level_domain } = ""
     let { native_name, nativo } = ""
@@ -11,7 +16,7 @@ function CountryPage() {
 
     useEffect(() => {
         async function fetchApi() {
-          const response = await fetch("https://restcountries.com/v3.1/name/brazil");
+          const response = await fetch(`https://restcountries.com/v3.1/alpha/${ccn3}`);
           const data = await response.json();
           console.log(data);
           setApi(data)

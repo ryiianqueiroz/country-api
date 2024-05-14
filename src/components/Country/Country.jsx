@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Search from "../../assets/search.png"
 import Arrow from "../../assets/arrow-down.png"
+import { Link } from "react-router-dom";
 //import CountryPage from "./components/CountryPage/CountryPage"
 
 function Country(props) {
@@ -89,8 +90,8 @@ function Country(props) {
                                                         lg:max-h-[265px] 
                                                         ta:max-h-[220px] 
                                                         sm:max-h-[300px]`}>
-                            <img src={post.flags.png} alt="#" className="bg-cover w-full h-[47%] 
-                                                                         sm:max-h-[113px]"/>
+                            <Link to={`/${post.ccn3}`}><img src={post.flags.png} alt="#" className="bg-cover w-full h-[47%] 
+                                                                         sm:max-h-[113px]"/></Link>
                             <div className="p-[8%]">
                                 <h1 className={`${props.isDark ? "text-white" : "text-black" } text-[1vw] font-extrabold mb-3 mt-1 
                                                lg:text-[1.3vw] 

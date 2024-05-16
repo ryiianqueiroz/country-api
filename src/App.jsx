@@ -1,6 +1,6 @@
 import { useState } from "react"
 import Moon from "./assets/moon.png"
-import Country from "./components/Country/Country"
+import { Outlet } from "react-router-dom"
 
 function App() {
   const [ darkMode, setDarkMode ] = useState(false)
@@ -31,7 +31,7 @@ function App() {
         </div>
       </nav>
 
-      <Country isDark={darkMode}></Country>
+      <Outlet isDark={darkMode}/>
 
     </div>
   )

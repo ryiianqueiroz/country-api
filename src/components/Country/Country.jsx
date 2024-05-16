@@ -87,11 +87,9 @@ function Country(props) {
                 {api.map((post) => {
                     return (
                         <div key={post.id} className={`${props.isDark ? "bg-[#2b3945]" : "bg-white"} shadow-md 
-                                                        lg:max-h-[265px] 
-                                                        ta:max-h-[220px] 
-                                                        sm:max-h-[300px]`}>
+                                                     lg:max-h-[265px] ta:max-h-[220px] sm:max-h-[300px]`}>
                             <Link to={`/${post.ccn3}`}><img src={post.flags.png} alt="#" className="bg-cover w-full h-[47%] 
-                                                                         sm:max-h-[113px]"/></Link>
+                                                                                                    sm:max-h-[113px]"/></Link>
                             <div className="p-[8%]">
                                 <h1 className={`${props.isDark ? "text-white" : "text-black" } text-[1vw] font-extrabold mb-3 mt-1 
                                                lg:text-[1.3vw] 

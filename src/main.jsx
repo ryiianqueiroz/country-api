@@ -7,17 +7,23 @@ import {
 } from "react-router-dom";
 import './index.css'
 import CountryPage from './components/CountryPage/CountryPage.jsx';
+import Country from "./components/Country/Country"
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
-    
+    children: [
+      {
+        path: "/",
+        element: <Country/>
+      },
+      {
+        path: "/:id",
+        element: <CountryPage/>
+      }
+    ]
   },
-  {
-    path: "/:id",
-    element: <CountryPage/>
-  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

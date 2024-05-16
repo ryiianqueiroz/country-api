@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useLocation, Link } from 'react-router-dom';
+import ArrowBack from "../../assets/arrow-back.svg"
 
 function CountryPage() {
     
     const [api, setApi] = useState([]);
 
     let location = useLocation();
-
     let ccn3 = location.pathname.replaceAll("/", "")
 
     let { nome, flag, population, region, sub_region, capital, top_level_domain } = ""
     let { native_name, nativo } = ""
     let { currencies, currencies_sub } = ""
     let { languages , languages_sub } = ""
+
+    let borders = []
 
     useEffect(() => {
         async function fetchApi() {
@@ -33,6 +35,9 @@ function CountryPage() {
         capital = post.capital
         top_level_domain = post.tld[0]
         flag = post.flags.png
+        borders = post.borders
+
+        console.log(borders)
 
         Object.keys(post.name.nativeName).forEach(function(prop) {
           nativo = prop
@@ -51,18 +56,52 @@ function CountryPage() {
         languages = post.languages[`${languages_sub}`]
     })
 
+    function borderPrint() {
+      for ( let i = 0; i <= borders.length; i++) {
+        return <li>{borders[i]}</li>
+      }
+    }
+
     return (
         <div>
-          <img src={flag} alt="#" />
-          <h1>{nome}</h1>
-          <h1>{native_name}</h1>
-          <h1>{population}</h1>
-          <h1>{region}</h1>
-          <h1>{sub_region}</h1>
-          <h1>{top_level_domain}</h1>
-          <h1>{capital}</h1>
-          <h1>{currencies}</h1>
-          <h1>{languages}</h1>
+          <Link to="/"><button><img src={ArrowBack} alt="#" /> Back</button></Link>
+
+          <div className="flex">
+              <div>
+                <img src={flag} alt="#" />
+              </div>
+
+              <div className="">
+                <h1>{nome}</h1>
+
+                <div>
+                  <div>
+                    <h1>{native_name}</h1>
+                    <h1>{population}</h1>
+                    <h1>{region}</h1>
+                    <h1>{sub_region}</h1>
+                    <h1>{top_level_domain}</h1>
+                  </div>
+                  
+                  <div>
+                    <h1>{capital}</h1>
+                    <h1>{currencies}</h1>
+                    <h1>{languages}</h1>
+                  </div>
+                </div>
+
+                <h3> Border Countries:
+                  { Object.values(borders).map((border, key) => {
+                      return (
+                        <button key={key}>
+                          {border}
+                        </button>
+                      )
+                    })
+                  }
+                </h3>
+              </div>
+          </div>
         </div>
     )
 }

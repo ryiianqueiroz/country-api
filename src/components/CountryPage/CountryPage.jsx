@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useLocation, Link } from 'react-router-dom';
 import ArrowBack from "../../assets/arrow-back.svg"
-import { useOutletContext } from 'react-router-dom';
+//import { useOutletContext } from 'react-router-dom';
 
 function CountryPage() {
     
-    const { darkMode } = useOutletContext();
+    //const { darkMode } = useOutletContext();
     const [api, setApi] = useState([]);
 
     let location = useLocation();
@@ -16,13 +16,20 @@ function CountryPage() {
     let { currencies, currencies_sub } = ""
     let { languages , languages_sub } = ""
 
-    let borders = []
+    const [ borders, setBorders ] = useState([])
 
     useEffect(() => {
         async function fetchApi() {
           const response = await fetch(`https://restcountries.com/v3.1/alpha/${ccn3}`);
           const data = await response.json();
           console.log(data);
+
+          if ( Array.isArray(data[0].borders) ) {
+            setBorders(data[0].borders)
+          } else {
+            setBorders([])
+          }
+
           setApi(data)
         }
       
@@ -37,9 +44,7 @@ function CountryPage() {
         capital = post.capital
         top_level_domain = post.tld[0]
         flag = post.flags.png
-        borders = post.borders
-
-        console.log(borders)
+        
 
         Object.keys(post.name.nativeName).forEach(function(prop) {
           nativo = prop
@@ -86,16 +91,15 @@ function CountryPage() {
                   </div>
                 </div>
 
-                <h3> Border Countries:
-                  { Object.values(borders).map((border, key) => {
-                      return (
-                        <button key={key}>
-                          {border}
-                        </button>
-                      )
-                    })
-                  }
-                </h3>
+                <div>
+                  {borders.length > 0 ? (
+                    borders.map((item, index) => (
+                      <p key={index}>{item}</p>
+                    ))
+                    ) : (
+                      <p></p>
+                    ) }
+                </div>
               </div>
           </div>
         </div>

@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useLocation, Link } from 'react-router-dom';
 import ArrowBack from "../../assets/arrow-back.svg"
+import { useOutletContext } from 'react-router-dom';
 
 function CountryPage() {
     
+    const { darkMode } = useOutletContext();
     const [api, setApi] = useState([]);
 
     let location = useLocation();
@@ -55,12 +57,6 @@ function CountryPage() {
         currencies = post.currencies[`${currencies_sub}`].symbol
         languages = post.languages[`${languages_sub}`]
     })
-
-    function borderPrint() {
-      for ( let i = 0; i <= borders.length; i++) {
-        return <li>{borders[i]}</li>
-      }
-    }
 
     return (
         <div>

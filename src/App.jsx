@@ -31,7 +31,7 @@ function App() {
         </div>
       </nav>
 
-      <Outlet isDark={darkMode}/>
+      <Outlet context={{ darkMode }} />
 
     </div>
   )

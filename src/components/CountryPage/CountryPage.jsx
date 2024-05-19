@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useLocation, Link } from 'react-router-dom';
 import ArrowBack from "../../assets/arrow-back.svg"
-//import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 
 function CountryPage() {
     
-    //const { darkMode } = useOutletContext();
+    const { darkMode } = useOutletContext();
     const [api, setApi] = useState([]);
 
     let location = useLocation();
@@ -64,43 +64,43 @@ function CountryPage() {
     })
 
     return (
-        <div>
-          <Link to="/"><button><img src={ArrowBack} alt="#" /> Back</button></Link>
+        <div className={`${darkMode ? "bg-[#202c37]" : "" } min-h-[100vh] py-[100px]`}>
+          <Link to="/"><button className={`${darkMode ? "bg-[#2b3945] text-white" : "" } text-[0.9rem] flex px-8 py-1 rounded-sm shadow-sm shadow-black items-center cursor-pointer ml-[90px]`}><img src={ArrowBack} alt="#" className={`${ darkMode ? "invert-[1]" : "" } w-4 mr-1`}/> Back</button></Link>
 
-          <div className="flex">
-              <div>
-                <img src={flag} alt="#" />
-              </div>
+          <div className="flex m-auto px-[90px] justify-between py-[40px]">
+            <div className="w-[44%]">
+              <img src={flag} alt="#" className="w-full"/>
+            </div>
 
-              <div className="">
-                <h1>{nome}</h1>
+            <div className="w-[44%] py-[40px]">
+              <h1 className={`${ darkMode ? "text-white" : "" } text-[1.5rem] font-bold`}>{nome}</h1>
 
-                <div>
-                  <div>
-                    <h1>{native_name}</h1>
-                    <h1>{population}</h1>
-                    <h1>{region}</h1>
-                    <h1>{sub_region}</h1>
-                    <h1>{top_level_domain}</h1>
-                  </div>
-                  
-                  <div>
-                    <h1>{capital}</h1>
-                    <h1>{currencies}</h1>
-                    <h1>{languages}</h1>
-                  </div>
+              <div className="grid grid-cols-2 mt-2">
+                <div className="flex flex-col gap-1">
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Native Name: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{native_name}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Population: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{population}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Region: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{region}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Sub Region: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{sub_region}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Capital: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{capital}</span></h1>
                 </div>
-
-                <div>
-                  {borders.length > 0 ? (
-                    borders.map((item, index) => (
-                      <p key={index}>{item}</p>
-                    ))
-                    ) : (
-                      <p></p>
-                    ) }
+                
+                <div className="flex flex-col gap-1">
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Top Level Domain: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{top_level_domain}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Currencies: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{currencies}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Languages: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{languages}</span></h1>
                 </div>
               </div>
+
+              <div className="py-[50px]"> Borders Countries:
+                {borders.length > 0 ? (
+                  borders.map((item, index) => (
+                    <p key={index}>{item}</p>
+                  ))
+                  ) : (
+                    <p></p>
+                  ) }
+              </div>
+            </div>
           </div>
         </div>
     )

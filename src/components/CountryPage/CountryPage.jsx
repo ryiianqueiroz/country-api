@@ -65,7 +65,7 @@ function CountryPage() {
 
     return (
         <div className={`${darkMode ? "bg-[#202c37]" : "" } min-h-[100vh] py-[100px]`}>
-          <Link to="/"><button className={`${darkMode ? "bg-[#2b3945] text-white" : "" } text-[0.9rem] flex px-8 py-1 rounded-sm shadow-sm shadow-black items-center cursor-pointer ml-[90px]`}><img src={ArrowBack} alt="#" className={`${ darkMode ? "invert-[1]" : "" } w-4 mr-1`}/> Back</button></Link>
+          <Link to="/"><button className={`${darkMode ? "bg-[#2b3945] text-white" : "" } text-[0.9rem] flex px-8 py-1 rounded-sm shadow-[0_0px_3px_1px_rgba(0,0,0,0.3)] shadow-black items-center cursor-pointer ml-[90px]`}><img src={ArrowBack} alt="#" className={`${ darkMode ? "invert-[1]" : "" } w-4 mr-1`}/> Back</button></Link>
 
           <div className="flex m-auto px-[90px] justify-between py-[40px]">
             <div className="w-[44%]">
@@ -91,15 +91,13 @@ function CountryPage() {
                 </div>
               </div>
 
-              <div className="py-[50px]"> Borders Countries:
-                {borders.length > 0 ? (
-                  borders.map((item, index) => (
-                    <p key={index}>{item}</p>
-                  ))
-                  ) : (
-                    <p></p>
-                  ) }
-              </div>
+              { borders.length > 0 ? (
+                <div className={`${ darkMode ? "text-white" : "" } py-[50px]`}> Borders Countries: 
+                  { borders.map((item, index) => (
+                    <button className={`${ darkMode ? "text-[#dadada] bg-[#2b3945] shadow-[#00000080]" : "bg-[#fafafa] shadow-[#b4b4b4]" } mb-2 shadow-[0_0px_3px_1px_rgba(0,0,0,0.3)] mr-2 px-8 py-1 cursor-pointer`} key={index}>{item}</button>
+                  )) }
+                </div>
+              ) : ( <p></p> ) }
             </div>
           </div>
         </div>

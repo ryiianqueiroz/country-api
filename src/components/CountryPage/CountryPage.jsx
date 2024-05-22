@@ -7,6 +7,7 @@ function CountryPage() {
     
     const { darkMode } = useOutletContext();
     const [api, setApi] = useState([]);
+    const [ borders, setBorders ] = useState([])
 
     let location = useLocation();
     let ccn3 = location.pathname.replaceAll("/", "")
@@ -16,25 +17,31 @@ function CountryPage() {
     let { currencies, currencies_sub } = ""
     let { languages , languages_sub } = ""
 
-    const [ borders, setBorders ] = useState([])
 
     useEffect(() => {
-        async function fetchApi() {
-          const response = await fetch(`https://restcountries.com/v3.1/alpha/${ccn3}`);
-          const data = await response.json();
-          console.log(data);
+      async function fetchApi(code) {
+        const response = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);
+        const data = await response.json();
+        console.log(data);
 
-          if ( Array.isArray(data[0].borders) ) {
-            setBorders(data[0].borders)
-          } else {
-            setBorders([])
-          }
-
-          setApi(data)
+        if (Array.isArray(data[0].borders)) {
+          const borderPromises = data[0].borders.map(async (borderCode) => {
+            const borderResponse = await fetch(`https://restcountries.com/v3.1/alpha/${borderCode}`);
+            const borderData = await borderResponse.json();
+            return borderData[0].name.common;
+          });
+  
+          const bordersNames = await Promise.all(borderPromises);
+          setBorders(bordersNames);
+        } else {
+          setBorders([]);
         }
-      
-        fetchApi();
-    }, [])
+
+        setApi(data)
+      }
+    
+      fetchApi(ccn3);
+    }, [ccn3])
 
     api.map((post) => {
         nome = post.name.common
@@ -92,9 +99,9 @@ function CountryPage() {
               </div>
 
               { borders.length > 0 ? (
-                <div className={`${ darkMode ? "text-white" : "" } py-[50px]`}> Borders Countries: 
+                <div className={`${ darkMode ? "text-white" : "" } py-[50px] [&>*:nth-child(odd)]:ml-3`}> Borders Countries: 
                   { borders.map((item, index) => (
-                    <button className={`${ darkMode ? "text-[#dadada] bg-[#2b3945] shadow-[#00000080]" : "bg-[#fafafa] shadow-[#b4b4b4]" } mb-2 shadow-[0_0px_3px_1px_rgba(0,0,0,0.3)] mr-2 px-8 py-1 cursor-pointer`} key={index}>{item}</button>
+                    <button className={`${ darkMode ? "text-[#dadada] bg-[#2b3945] shadow-[#00000080]" : "bg-[#fafafa] shadow-[#b4b4b4]" } mb-2 shadow-[0_0px_3px_1px_rgba(0,0,0,0.3)] mr-3 px-8 py-1 cursor-pointer`} key={index}>{item}</button>
                   )) }
                 </div>
               ) : ( <p></p> ) }

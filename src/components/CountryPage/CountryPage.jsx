@@ -72,36 +72,36 @@ function CountryPage() {
 
     return (
         <div className={`${darkMode ? "bg-[#202c37]" : "" } min-h-[100vh] py-[100px]`}>
-          <Link to="/"><button className={`${darkMode ? "bg-[#2b3945] text-white" : "" } text-[0.9rem] flex px-8 py-1 rounded-sm shadow-[0_0px_3px_1px_rgba(0,0,0,0.3)] shadow-black items-center cursor-pointer ml-[90px]`}><img src={ArrowBack} alt="#" className={`${ darkMode ? "invert-[1]" : "" } w-4 mr-1`}/> Back</button></Link>
+          <Link to="/"><button className={`${darkMode ? "bg-[#2b3945] text-white" : "" } text-[0.9rem] mb-[5%] flex px-8 py-1 rounded-sm shadow-[0_0px_3px_1px_rgba(0,0,0,0.3)] shadow-[#00000052] items-center cursor-pointer ml-[90px]`}><img src={ArrowBack} alt="#" className={`${ darkMode ? "invert-[1]" : "" } w-4 mr-1`}/> Back</button></Link>
 
-          <div className="flex m-auto px-[90px] justify-between py-[40px]">
-            <div className="w-[44%]">
-              <img src={flag} alt="#" className="w-full"/>
+          <div className="flex m-auto px-[90px] justify-between min-h-[300px]">
+            <div className="w-[44%] my-auto lg:w-[46%]">
+              <img src={flag} alt="#" className="w-full h-full mt-[-20px]"/>
             </div>
 
-            <div className="w-[44%] py-[40px]">
-              <h1 className={`${ darkMode ? "text-white" : "" } text-[1.5rem] font-bold`}>{nome}</h1>
+            <div className="w-[44%] flex flex-col justify-center lg:w-[46%]">
+              <h1 className={`${ darkMode ? "text-white" : "" } text-[1.3rem] font-bold lg:text-[1rem]`}>{nome}</h1>
 
               <div className="grid grid-cols-2 mt-2">
                 <div className="flex flex-col gap-1">
-                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Native Name: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{native_name}</span></h1>
-                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Population: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{population}</span></h1>
-                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Region: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{region}</span></h1>
-                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Sub Region: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{sub_region}</span></h1>
-                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Capital: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{capital}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" } text-[0.9rem] lg:text-[0.7rem]`}>Native Name: <span className={`${ darkMode ? "text-[#dadadab9]" : "" } text-[0.8rem] lg:text-[0.7rem]`}>{native_name}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" } text-[0.9rem] lg:text-[0.7rem]`}>Population: <span className={`${ darkMode ? "text-[#dadadab9]" : "" } text-[0.8rem] lg:text-[0.7rem]`}>{population}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" } text-[0.9rem] lg:text-[0.7rem]`}>Region: <span className={`${ darkMode ? "text-[#dadadab9]" : "" } text-[0.8rem] lg:text-[0.7rem]`}>{region}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" } text-[0.9rem] lg:text-[0.7rem]`}>Sub Region: <span className={`${ darkMode ? "text-[#dadadab9]" : "" } text-[0.8rem] lg:text-[0.7rem]`}>{sub_region}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" } text-[0.9rem] lg:text-[0.7rem]`}>Capital: <span className={`${ darkMode ? "text-[#dadadab9]" : "" } text-[0.8rem] lg:text-[0.7rem]`}>{capital}</span></h1>
                 </div>
                 
                 <div className="flex flex-col gap-1">
-                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Top Level Domain: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{top_level_domain}</span></h1>
-                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Currencies: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{currencies}</span></h1>
-                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" }`}>Languages: <span className={`${ darkMode ? "text-[#dadadab9]" : "" }`}>{languages}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" } text-[0.9rem] lg:text-[0.7rem]`}>Top Level Domain: <span className={`${ darkMode ? "text-[#dadadab9]" : "" } text-[0.8rem] lg:text-[0.7rem]`}>{top_level_domain}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" } text-[0.9rem] lg:text-[0.7rem]`}>Currencies: <span className={`${ darkMode ? "text-[#dadadab9]" : "" } text-[0.8rem] lg:text-[0.7rem]`}>{currencies}</span></h1>
+                  <h1 className={`${ darkMode ? "text-[#dadada]" : "" } text-[0.9rem] lg:text-[0.7rem]`}>Languages: <span className={`${ darkMode ? "text-[#dadadab9]" : "" } text-[0.8rem] lg:text-[0.7rem]`}>{languages}</span></h1>
                 </div>
               </div>
 
               { borders.length > 0 ? (
-                <div className={`${ darkMode ? "text-white" : "" } py-[50px] [&>*:nth-child(odd)]:ml-3`}> Borders Countries: 
+                <div className={`${ darkMode ? "text-white" : "" } py-[30px] grid grid-cols-3 items-center`}> <span className="my-auto mr-1 flex lg:min-h-[30px] lg:max-h-[30px] lg:mb-2 lg:items-center lg:justify-start lg:text-[0.54rem]">Borders Countries: </span>
                   { borders.map((item, index) => (
-                    <button className={`${ darkMode ? "text-[#dadada] bg-[#2b3945] shadow-[#00000080]" : "bg-[#fafafa] shadow-[#b4b4b4]" } mb-2 shadow-[0_0px_3px_1px_rgba(0,0,0,0.3)] mr-3 px-8 py-1 cursor-pointer`} key={index}>{item}</button>
+                    <button className={`${ darkMode ? "text-[#dadada] bg-[#2b3945] shadow-[#00000080]" : "bg-[#fafafa] shadow-[#b4b4b4]" } mb-2 shadow-[0_0px_3px_1px_rgba(0,0,0,0.3)] min-h-[35px] mr-3 text-[0.8rem] lg:min-h-[30px] lg:max-h-[30px] lg:mb-2 lg:my-auto lg:text-[0.7rem]`} key={index}>{item}</button>
                   )) }
                 </div>
               ) : ( <p></p> ) }

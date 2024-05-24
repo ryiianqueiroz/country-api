@@ -5,7 +5,7 @@ import Arrow from "../../assets/arrow-down.png"
 import { Link } from "react-router-dom";
 import { useOutletContext } from 'react-router-dom';
 
-function Country(props) {
+function Country() {
     const { darkMode } = useOutletContext();
     const [ api, setApi ] = useState([]);
     const [ filter, setFilter ] = useState(false)

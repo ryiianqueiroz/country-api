@@ -9,6 +9,8 @@ function Country() {
     const { darkMode } = useOutletContext();
     const [ api, setApi ] = useState([]);
     const [ filter, setFilter ] = useState(false)
+    const [filteredCountries, setFilteredCountries] = useState([]);
+    const [query, setQuery] = useState('');
 
     useEffect(() => {
         fetch("https://restcountries.com/v3.1/all")
@@ -21,6 +23,14 @@ function Country() {
                 console.log(err)
             })
     }, [])
+
+    useEffect(() => {
+        setFilteredCountries(
+          api.filter(country =>
+            country.name.common.toLowerCase().startsWith(query.toLowerCase())
+          )
+        );
+    }, [query, api]);
 
     const ativarFilter = () => {
         if ( filter == false ) {
@@ -35,23 +45,17 @@ function Country() {
             <div className="m-auto px-[90px] justify-between flex relative
                             ta:px-[50px]
                             sm:flex-col sm:px-[20px]">           
-                <div className={`${darkMode ? "bg-[#2b3945]" : "bg-white"} flex h-[45px] shadow-md rounded-lg w-[45%]
-                                ta:h-[40px] ta:w-[47%]
-                                sm:w-full`}>
-                    <div className="flex items-center p-4 pl-6
-                                    ta:pl-4">
-                        <img src={Search} alt="#" className={`${darkMode ? "invert-[1]" : ""} w-4 h-4
-                                                             md:w-3 md:h-3 md:m-auto
-                                                             ta:mt-[-1px] ta:w-3 ta:h-[10px]`}/>
+                <div className={`${darkMode ? "bg-[#2b3945]" : "bg-white"} flex h-[45px] shadow-md rounded-lg w-[45%] ta:h-[40px] ta:w-[47%] sm:w-full`}>
+                    <div className="flex items-center p-4 pl-6 ta:pl-4">
+                        <img src={Search} alt="#" className={`${darkMode ? "invert-[1]" : ""} w-4 h-4 md:w-3 md:h-3 md:m-auto ta:mt-[-1px] ta:w-3 ta:h-[10px]`}/>
                     </div>
-                    <input type="text" id="search_country" 
-                        className={`${darkMode ? "bg-[#2b3945] placeholder:text-white focus:text-white" : "bg-white"} w-full rounded-lg pl-2 text-[0.8rem] relative
-                                   focus:outline-none
-                                   lg:placeholder:text-[0.8rem]
-                                   md:placeholder:text-[0.7rem] md:placeholder:absolute md:placeholder:top-[15px] md:text-[0.7rem]
-                                   ta:placeholder:top-[13.5px] ta:placeholder:text-[0.55rem] ta:pl-0 ta:ml-[-5px]
-                                   mob:placeholder:text-[0.5rem] mob:placeholder:top-[15px]`}
-                        placeholder="Search for a country..." />
+                    
+                    <input type="text" 
+                           id="search_country"
+                           value={query}
+                           onChange={e => setQuery(e.target.value)} 
+                           className={`${darkMode ? "bg-[#2b3945] placeholder:text-white focus:text-white" : "bg-white"} w-full rounded-lg pl-2 text-[0.8rem] relative focus:outline-none lg:placeholder:text-[0.8rem] md:placeholder:text-[0.7rem] md:placeholder:absolute md:placeholder:top-[15px] md:text-[0.7rem] ta:placeholder:top-[13.5px] ta:placeholder:text-[0.55rem] ta:pl-0 ta:ml-[-5px] mob:placeholder:text-[0.5rem] mob:placeholder:top-[15px]`}
+                           placeholder="Search for a country..." />
                 </div>
 
                 <div className={`${darkMode ? "bg-[#2b3945]" : "bg-white"} flex flex-col cursor-pointer w-[200px] px-6 relative shadow-lg rounded-md z-1
@@ -79,12 +83,8 @@ function Country() {
                 
             </div>
 
-            <div className="px-[90px] py-[50px] grid grid-cols-4 gap-[3.5rem] 
-                            lg:grid-cols-3 
-                            md:grid-cols-2 md:gap-[2rem] 
-                            ta:px-[50px] 
-                            sm:grid-cols-1 sm:py-[30px]">
-                {api.map((post) => {
+            <div className="px-[90px] py-[50px] grid grid-cols-4 gap-[3.5rem] lg:grid-cols-3 md:grid-cols-2 md:gap-[2rem] ta:px-[50px] sm:grid-cols-1 sm:py-[30px]">
+                {filteredCountries.map((post) => {
                     return (
                         <div key={post.id} className={`${darkMode ? "bg-[#2b3945]" : "bg-white"} shadow-md 
                                                      lg:max-h-[265px] ta:max-h-[220px] sm:max-h-[300px]`}>

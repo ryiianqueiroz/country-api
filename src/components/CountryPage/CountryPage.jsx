@@ -18,57 +18,96 @@ function CountryPage() {
   let { languages, languages_sub } = ""
 
 
+  //  useEffect(() => {
+  //    async function fetchApi(code) {
+  //      const response = await fetch(`https:restcountries.com/v3.1/alpha/${code}`);
+  //      const data = await response.json();
+  //      console.log(data);
+
+  //       USAR DATA.JSON
+
+  //      if (Array.isArray(data[0].borders)) {
+  //        const borderPromises = data[0].borders.map(async (borderCode) => {
+  //          const borderResponse = await fetch(`https:restcountries.com/v3.1/alpha/${borderCode}`);
+  //          const borderData = await borderResponse.json();
+  //          return borderData[0].name.common;
+  //        });
+
+  //        const bordersNames = await Promise.all(borderPromises);
+  //        console.log(bordersNames)
+  //        setBorders(bordersNames);
+  //      } else {
+  //        setBorders([]);
+  //      }
+
+  //      setApi(data)
+  //    }
+
+  //    fetchApi(ccn3);
+  //  }, [ccn3])
+
   useEffect(() => {
     async function fetchApi(code) {
-      const response = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);
+      const response = await fetch("/data.json");
       const data = await response.json();
-      console.log(data);
 
-      if (Array.isArray(data[0].borders)) {
-        const borderPromises = data[0].borders.map(async (borderCode) => {
-          const borderResponse = await fetch(`https://restcountries.com/v3.1/alpha/${borderCode}`);
-          const borderData = await borderResponse.json();
-          return borderData[0].name.common;
-        });
+      const indexPosition = ( data ) => { if ( data.numericCode == code ) { return true } }
 
-        const bordersNames = await Promise.all(borderPromises);
-        setBorders(bordersNames);
-      } else {
-        setBorders([]);
-      }
+      const index = data.findIndex( indexPosition )
+      setApi(data[index])
+      
+    
+      data.map((key) => {
+          if (Array.isArray(key[index].borders)) {
+            const borderPromises = key[index].borders.map( async ( borderCode ) => {
+              const borderResponse = await fetch("/data.json");
+              const borderData = await borderResponse.json();
 
-      setApi(data)
-    }
+              borderData.map((key) => {
+                return key[index].name.common;
+              })
+            });
+  
+            const bordersNames = async () => { return await Promise.all(borderPromises) }
+            setBorders(bordersNames);
+          } else {
+            setBorders([]);
+          }
+        }
+      )
+    } 
 
-    fetchApi(ccn3);
+    fetchApi(ccn3)
   }, [ccn3])
 
+  console.log(api)
+
   api.map((post) => {
-    nome = post.name.common
-    population = post.population
-    region = post.region
-    sub_region = post.subregion
-    capital = post.capital
-    top_level_domain = post.tld[0]
-    flag = post.flags.png
+      nome = post.name.common
+      population = post.population
+      region = post.region
+      sub_region = post.subregion
+      capital = post.capital
+      top_level_domain = post.tld[0]
+      flag = post.flags.png
 
 
-    Object.keys(post.name.nativeName).forEach(function (prop) {
-      nativo = prop
-    });
+      Object.keys(post.name.nativeName).forEach(function (prop) {
+        nativo = prop
+      });
 
-    Object.keys(post.currencies).forEach(function (prop) {
-      currencies_sub = prop
-    });
+      Object.keys(post.currencies).forEach(function (prop) {
+        currencies_sub = prop
+      });
 
-    Object.keys(post.languages).forEach(function (prop) {
-      languages_sub = prop
-    });
+      Object.keys(post.languages).forEach(function (prop) {
+        languages_sub = prop
+      });
 
-    native_name = post.name.nativeName[`${nativo}`].common
-    currencies = post.currencies[`${currencies_sub}`].symbol
-    languages = post.languages[`${languages_sub}`]
-  })
+      native_name = post.name.nativeName[`${nativo}`].common
+      currencies = post.currencies[`${currencies_sub}`].symbol
+      languages = post.languages[`${languages_sub}`]
+    })
 
   return (
     <div className={`${darkMode ? "bg-[#202c37]" : ""} min-h-[100vh] py-[100px]`}>

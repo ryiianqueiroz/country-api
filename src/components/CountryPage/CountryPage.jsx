@@ -48,27 +48,47 @@ function CountryPage() {
       fetch('/data.json')
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Não foi possivel puxar dados');
         }
         return response.json();
       })
       .then(data => {
-        const indexPosition = ( dados ) => { if ( dados.numericCode == code ) { return true } }
+        const indexPosition = ( dados ) => { if ( dados.numericCode === code ) { return true } }
 
         const index = data.findIndex( indexPosition )
         setApi([data[index]])
       })
-      .catch(error => console.error('Error fetching countries:', error));
+      .catch(error => console.error('Erro:', error));
     }
 
-    // async function fetchBorders(code) {
-    //   const response = await fetch("/data.json");
-    //   const data = await response.json();     
-    // } 
-
     fetchApi(ccn3)
-    //fetchBorders(ccn3)
   }, [ccn3])
+
+  useEffect(() => {
+    async function fetchBorders() {
+      api.map( async (post) => {
+        if (Array.isArray(post.borders)) {
+          const borderPromises = post.borders.map( async (borderCode) => {
+            const borderResponse = await fetch("/data.json");
+            const borderData = await borderResponse.json();
+
+            const indexPosition = ( dados ) => { if ( dados.alpha3Code === borderCode ) { return true } }
+
+            const index = borderData.findIndex( indexPosition )
+            return borderData[index].name
+          });
+
+          const bordersNames = await Promise.all(borderPromises);
+          console.log(bordersNames)
+          setBorders(bordersNames);
+        } else {
+          setBorders([]);
+        }
+      })
+    }
+
+    fetchBorders()
+  }, [api])
 
   console.log(api)
 
@@ -103,30 +123,14 @@ function CountryPage() {
 
         <div className="w-[44%] flex flex-col justify-center lg:w-[49%]">
           <h1 className={`${darkMode ? "text-white" : ""} text-[1.3rem] font-bold lg:text-[1rem]`}>{nome}</h1>
-
-          {/* <div className="grid grid-cols-2 mt-2">
-            <div className="flex flex-col gap-1">
-              <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Native Name: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{nome}</span></h1>
-              <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Population: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{population}</span></h1>
-              <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Region: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{region}</span></h1>
-              <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Sub Region: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{sub_region}</span></h1>
-              <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Capital: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{capital}</span></h1>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Top Level Domain: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{top_level_domain}</span></h1>
-              <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Currencies: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{currencies}</span></h1>
-              <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Languages: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{languages}</span></h1>
-            </div>
-          </div> */}
-
+          
           {api.map((post) => (
             <div key={post.numericCode} className="grid grid-cols-2 mt-2">
               <div className="flex flex-col gap-1">
                 <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Native Name: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{post.name}</span></h1>
                 <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Population: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{post.population}</span></h1>
                 <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Region: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{post.region}</span></h1>
-                <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Sub Region: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{post.sub_region}</span></h1>
+                <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Sub Region: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{post.subregion}</span></h1>
                 <h1 className={`${darkMode ? "text-[#dadada]" : ""} text-[0.9rem] lg:text-[0.7rem] font-bold`}>Capital: <span className={`${darkMode ? "text-[#dadadab9]" : ""} text-[0.8rem] lg:text-[0.7rem] font-normal`}>{post.capital}</span></h1>
               </div>
 
@@ -138,7 +142,7 @@ function CountryPage() {
             </div>
           ))}
 
-          {/* {borders.length > 0 ? (
+          {borders.length > 0 ? (
             <div className={`${darkMode ? "text-white" : ""} mt-4 flex`}>
               <div className="grid grid-cols-3 gap-x-2 gap-y-3 items-center">
                 <span className="mr-3 text-[0.9rem] font-bold lg:text-[0.7rem] lg:text-nowrap">Borders Countries: </span>              
@@ -147,7 +151,7 @@ function CountryPage() {
               ))}
               </div>
             </div>
-          ) : (<p></p>)} */}
+          ) : (<p></p>)}
         </div>
       </div>
     </div>

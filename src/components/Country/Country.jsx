@@ -12,8 +12,10 @@ function Country() {
     const [filteredCountries, setFilteredCountries] = useState([]);
     const [query, setQuery] = useState('');
 
+    const [ countryRegion, setCountryRegion ] = useState("")
+
     useEffect(() => {
-        fetch("https://restcountries.com/v3.1/all")
+        fetch("/data.json")
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
@@ -27,10 +29,23 @@ function Country() {
     useEffect(() => {
         setFilteredCountries(
           api.filter(country =>
-            country.name.common.toLowerCase().startsWith(query.toLowerCase())
+            country.name.toLowerCase().startsWith(query.toLowerCase())
           )
         );
     }, [query, api]);
+
+    useEffect(() => {
+        setFilteredCountries(
+            api.filter((country) => {
+                if ( countryRegion != "" ) {
+                    console.log(countryRegion)
+                    return country.region == countryRegion
+                } else {
+                    return country
+                }
+            })
+        )
+    }, [countryRegion, api])
 
     const ativarFilter = () => {
         if ( filter == false ) {
@@ -65,11 +80,11 @@ function Country() {
                     </div>
 
                     <ul className={`${filter ? "flex" : "hidden"} ${darkMode ? "bg-[#2b3945]" : "bg-white"} flex-col absolute left-0 w-full mt-12 p-4 pl-6 gap-1 shadow-lg rounded-md`}> 
-                        <li className={`${darkMode ? "text-white" : "text-black"}`}>Africa</li>
-                        <li className={`${darkMode ? "text-white" : "text-black"}`}>America</li>
-                        <li className={`${darkMode ? "text-white" : "text-black"}`}>Asia</li>
-                        <li className={`${darkMode ? "text-white" : "text-black"}`}>Europe</li>
-                        <li className={`${darkMode ? "text-white" : "text-black"}`}>Oceania</li>
+                        <li onClick={() => setCountryRegion("Africa")} className={`${darkMode ? "text-white" : "text-black"}`}>Africa</li>
+                        <li onClick={() => setCountryRegion("Americas")} className={`${darkMode ? "text-white" : "text-black"}`}>Americas</li>
+                        <li onClick={() => setCountryRegion("Asia")} className={`${darkMode ? "text-white" : "text-black"}`}>Asia</li>
+                        <li onClick={() => setCountryRegion("Europe")} className={`${darkMode ? "text-white" : "text-black"}`}>Europe</li>
+                        <li onClick={() => setCountryRegion("Oceania")} className={`${darkMode ? "text-white" : "text-black"}`}>Oceania</li>
                     </ul>
                 </div>
                 
@@ -78,10 +93,10 @@ function Country() {
             <div className="px-[90px] py-[50px] grid grid-cols-4 gap-[3.5rem] lg:grid-cols-3 md:grid-cols-2 md:gap-[2rem] ta:px-[50px] sm:grid-cols-1 sm:py-[30px]">
                 {filteredCountries.map((post) => {
                     return (
-                        <div key={post.id} className={`${darkMode ? "bg-[#2b3945]" : "bg-white"} shadow-md lg:max-h-[265px] ta:max-h-[220px] sm:max-h-[300px]`}>
-                            <Link to={`/${post.ccn3}`}><img src={post.flags.png} alt="#" className="bg-cover w-full h-[47%] sm:max-h-[113px]"/></Link>
+                        <div key={post.numericCode} className={`${darkMode ? "bg-[#2b3945]" : "bg-white"} shadow-md lg:max-h-[265px] ta:max-h-[220px] sm:max-h-[300px]`}>
+                            <Link to={`/${post.numericCode}`}><img src={post.flags.png} alt="#" className="bg-cover w-full h-[47%] sm:max-h-[113px]"/></Link>
                             <div className="p-[8%]">
-                                <h1 className={`${darkMode ? "text-white" : "text-black" } text-[1vw] font-extrabold mb-3 mt-1 lg:text-[1.3vw] ta:text-[1.9vw] sm:text-[3.4vw] sm:mt-0`}>{post.name.common}</h1>
+                                <h1 className={`${darkMode ? "text-white" : "text-black" } text-[1vw] font-extrabold mb-3 mt-1 lg:text-[1.3vw] ta:text-[1.9vw] sm:text-[3.4vw] sm:mt-0`}>{post.name}</h1>
                                 
                                 <p className={`${darkMode ? "text-white" : "text-black" } font-bold text-[0.9vw] flex lg:text-[1.2vw] ta:text-[1.7vw] sm:text-[2.7vw]`}>
                                     Population: <span className="font-normal ml-1">{post.population}</span> </p>

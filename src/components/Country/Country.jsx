@@ -73,11 +73,11 @@ function Country() {
 
                 <div className={`${darkMode ? "bg-[#2b3945]" : "bg-white"} flex flex-col cursor-pointer w-[200px] px-6 relative shadow-lg rounded-md z-1 ta:w-[140px] sm:w-[60%] sm:mt-3`}  onClick={() => ativarFilter()}>
                     <div className="flex h-[45px] items-center justify-between ta:h-[40px] sm:h-[35px]">                       
-                        <span className={`${darkMode ? "text-white" : "text-black"} text-[0.9rem] my-auto md:text-[0.7rem] ta:text-[0.6rem] ta:my-auto`}>Filter by Region</span>
+                        <span className={`${darkMode ? "text-white" : "text-black"} text-[0.9rem] my-auto md:text-[0.7rem] ta:text-[0.6rem] ta:my-auto sm:ml-[-5px]`}>Filter by Region</span>
                         <img src={Arrow} alt="#" className={`${ darkMode ? "invert-[1]" : "" } w-6 relative md:absolute md:w-4 md:right-5 md:top-[14px] ta:top-[13px] ta:w-[14px] sm:right-3 sm:top-[10px]`}/>
                     </div>
 
-                    <ul className={`${filter ? "flex" : "hidden"} ${darkMode ? "bg-[#2b3945]" : "bg-white"} flex-col absolute left-0 w-full mt-12 p-4 pl-6 gap-1 shadow-lg rounded-md`}> 
+                    <ul className={`${filter ? "flex" : "hidden"} ${darkMode ? "bg-[#2b3945]" : "bg-white"} flex-col absolute left-0 w-full mt-12 p-4 pl-6 gap-1 shadow-lg rounded-md ta:text-[0.8rem] sm:text-[0.7rem] sm:w-[110px]`}> 
                         <li onClick={() => setCountryRegion("Africa")} className={`${darkMode ? "text-white" : "text-black"}`}>Africa</li>
                         <li onClick={() => setCountryRegion("Americas")} className={`${darkMode ? "text-white" : "text-black"}`}>Americas</li>
                         <li onClick={() => setCountryRegion("Asia")} className={`${darkMode ? "text-white" : "text-black"}`}>Asia</li>

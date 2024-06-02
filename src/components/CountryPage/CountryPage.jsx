@@ -12,7 +12,7 @@ function CountryPage() {
   let location = useLocation();
   let ccn3 = location.pathname.replaceAll("/", "")
 
-  let { nome, flag, currencies, currencies_sub, languages, languages_sub } = ""
+  let { nome, flag, currencies, currencies_sub, languages } = ""
   let top_level_domain = []
 
   useEffect(() => {
@@ -47,7 +47,8 @@ function CountryPage() {
             const indexPosition = ( dados ) => { if ( dados.alpha3Code === borderCode ) { return true } }
 
             const index = borderData.findIndex( indexPosition )
-            return borderData[index].name
+            let result = borderData[index].name.replace(/\s*\(.*?\)\s*/g, ''); 
+            return result
           });
 
           const bordersNames = await Promise.all(borderPromises);
@@ -63,7 +64,6 @@ function CountryPage() {
   }, [api])
 
   api.map(post => {
-    console.log("sim")
     nome = post.name
     flag = post.flags.png
 
@@ -71,13 +71,9 @@ function CountryPage() {
       currencies_sub = prop
     });
 
-    Object.keys(post.languages).forEach(function (prop) {
-      languages_sub = prop
-    });
-
     top_level_domain = post.topLevelDomain
     currencies = post.currencies[`${currencies_sub}`].symbol
-    languages = post.languages[`${languages_sub}`].name
+    languages = post.languages[0].name
 
     console.log(top_level_domain, currencies, languages)
   })
@@ -113,11 +109,12 @@ function CountryPage() {
           ))}
 
           {borders.length > 0 ? (
-            <div className={`${darkMode ? "text-white" : ""} mt-4 flex`}>
-              <div className="grid grid-cols-3 gap-x-2 gap-y-3 items-center sm:grid-cols-2 sm:gap-x-5">
-                <span className="mr-3 text-[0.9rem] font-bold lg:text-[0.7rem] lg:text-nowrap">Borders Countries: </span>              
+            <div className={`${darkMode ? "text-white" : ""} mt-4 flex flex-col sm:flex-col`}>
+              <span className="hidden mr-3 text-[0.9rem] font-bold lg:text-[0.7rem] lg:text-nowrap sm:flex sm:text-[0.95rem] sm:mb-5">Borders Countries: </span>
+              <div className="grid grid-cols-3 gap-x-2 gap-y-3 items-center md:grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] sm:gap-x-1 sm:w-full mob:grid-cols-2">
+                <span className="mr-3 text-[0.9rem] font-bold lg:text-[0.7rem] lg:text-nowrap sm:hidden">Borders Countries: </span>              
                 {borders.map((item, index) => (
-                  <button className={`${darkMode ? "text-[#dadada] bg-[#2b3945] shadow-[#00000080]" : "bg-[#fafafa] shadow-[#b4b4b4]"} shadow-[0_0px_3px_1px] shadow-[#0505051f] text-[0.8rem] p-1 lg:text-[0.6rem] lg:min-w-[90%] lg:ml-auto sm:ml-[0]`} key={index}>{item}</button>
+                  <button className={`${darkMode ? "text-[#dadada] bg-[#2b3945] shadow-[#00000080]" : "bg-[#fafafa] shadow-[#b4b4b4]"} shadow-[0_0px_3px_1px] shadow-[#0505051f] text-[0.8rem] p-1 lg:text-[0.6rem] lg:min-w-[90%] lg:mr-auto sm:ml-[0] sm:text-[0.8rem] sm:min-w-full mob:text-[0.7rem]`} key={index}>{item}</button>
               ))}
               </div>
             </div>

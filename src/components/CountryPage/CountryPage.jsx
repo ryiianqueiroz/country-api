@@ -83,8 +83,8 @@ function CountryPage() {
   })
 
   if ( loading ) {
-    return <div>
-              <img src={GIF} alt="#" />
+    return <div className="min-h-[100vh] flex items-center justify-center">
+              <img src={GIF} alt="#" className="w-10" />
            </div>
   }
 
@@ -135,7 +135,7 @@ function CountryPage() {
           </div>
         </div>
       ) : (
-        <div>Carregando</div>
+        <div className="text-[1rem] m-auto">{`Error :(`}</div>
       ) }
     </>
   )

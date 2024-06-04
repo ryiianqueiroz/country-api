@@ -14,7 +14,7 @@ function App() {
   }
 
   return (
-    <div className="font-customFont bg-gray-200 min-h-full relative">
+    <div className="font-customFont bg-gray-200 min-h-[100vh] relative">
       
       <nav className={`${darkMode ? "bg-[#2b3945]" : "bg-gray-200" } flex px-[90px] items-center h-[70px] fixed w-full shadow-md z-[9999] md:px-[7%] sm:px-[30px]`}>
         <h1 className={`${darkMode ? "text-[#e2e2e2]" : "text-black" } font-[900] text-[1.8rem] md:text-[1rem] sm:text-[0.79rem] mob:text-[0.69rem]`}>Where is the world?</h1>

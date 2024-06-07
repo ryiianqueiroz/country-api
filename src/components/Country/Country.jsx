@@ -17,7 +17,8 @@ function Country() {
     const [ countryRegion, setCountryRegion ] = useState("")
 
     useEffect(() => {
-        fetch("/data.json")
+        const baseUrl = process.env.NODE_ENV === 'production' ? '/country-api' : '';
+        fetch(`${baseUrl}/data.json`)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)

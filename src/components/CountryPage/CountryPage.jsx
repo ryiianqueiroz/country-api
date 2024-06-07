@@ -19,7 +19,8 @@ function CountryPage() {
 
   useEffect(() => {
     async function fetchApi(code) {
-      fetch('/data.json')
+      const baseUrl = process.env.NODE_ENV === 'production' ? '/country-api' : '';
+      fetch(`${baseUrl}/data.json`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Não foi possivel puxar dados');

@@ -11,15 +11,15 @@ import Country from "./components/Country/Country"
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/country-api",
     element: <App/>,
     children: [
       {
-        path: "/",
+        path: "/country-api",
         element: <Country/>
       },
       {
-        path: "/:id",
+        path: "/country-api/:id",
         element: <CountryPage/>
       }
     ]

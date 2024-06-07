@@ -17,7 +17,7 @@ function Country() {
     const [ countryRegion, setCountryRegion ] = useState("")
 
     useEffect(() => {
-        fetch("/data.json")
+        fetch("/country-api/public/data.json")
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
@@ -106,7 +106,7 @@ function Country() {
                             filteredCountries.map((post) => {
                                 return (
                                     <div key={post.numericCode} className={`${darkMode ? "bg-[#2b3945]" : "bg-white"} shadow-md lg:max-h-[265px] ta:max-h-[220px] sm:max-h-[300px]`}>
-                                        <Link to={`/${post.numericCode}`}><img src={post.flags.png} alt="#" className="bg-cover w-full h-[47%] sm:max-h-[155px]"/></Link>
+                                        <Link to={`/country-api/${post.numericCode}`}><img src={post.flags.png} alt="#" className="bg-cover w-full h-[47%] sm:max-h-[155px]"/></Link>
                                         <div className="p-[8%]">
                                             <h1 className={`${darkMode ? "text-white" : "text-black" } text-[1vw] font-extrabold mb-3 mt-1 lg:text-[1.3vw] md:text-[2vw] ta:text-[1.9vw] sm:text-[3.4vw] sm:mt-0`}>{post.name}</h1>
                                             

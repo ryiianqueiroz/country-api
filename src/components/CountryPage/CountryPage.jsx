@@ -12,14 +12,14 @@ function CountryPage() {
   const [loading, setLoading] = useState(true);
 
   let location = useLocation();
-  let ccn3 = location.pathname.replaceAll("/", "")
+  let ccn3 = location.pathname.replaceAll("/country-api/", "")
 
   let { nome, flag, currencies, currencies_sub, languages } = ""
   let top_level_domain = []
 
   useEffect(() => {
     async function fetchApi(code) {
-      fetch('/data.json')
+      fetch('/country-api/public/data.json')
       .then(response => {
         if (!response.ok) {
           throw new Error('Não foi possivel puxar dados');
@@ -92,7 +92,7 @@ function CountryPage() {
     <>
       { api ? (
         <div className={`${darkMode ? "bg-[#202c37]" : ""} min-h-[100vh] py-[100px]`}>
-          <Link to="/"><button className={`${darkMode ? "bg-[#2b3945] text-white" : ""} text-[0.9rem] mb-[5%] flex px-8 py-1 rounded-sm shadow-[0_0px_3px_1px_rgba(0,0,0,0.3)] shadow-[#00000052] items-center cursor-pointer ml-[90px] md:ml-[7%] sm:text-[0.7rem] sm:px-5`}><img src={ArrowBack} alt="#" className={`${darkMode ? "invert-[1]" : ""} w-4 mr-1`} /> Back</button></Link>
+          <Link to="/country-api"><button className={`${darkMode ? "bg-[#2b3945] text-white" : ""} text-[0.9rem] mb-[5%] flex px-8 py-1 rounded-sm shadow-[0_0px_3px_1px_rgba(0,0,0,0.3)] shadow-[#00000052] items-center cursor-pointer ml-[90px] md:ml-[7%] sm:text-[0.7rem] sm:px-5`}><img src={ArrowBack} alt="#" className={`${darkMode ? "invert-[1]" : ""} w-4 mr-1`} /> Back</button></Link>
     
           <div className="flex m-auto px-[90px] justify-between min-h-[300px] md:flex-col md:px-[7%]">
             <div className="w-[44%] my-auto lg:w-[44%] md:w-full md:mt-[30px]">

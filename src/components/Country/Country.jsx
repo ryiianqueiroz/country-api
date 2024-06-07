@@ -17,7 +17,7 @@ function Country() {
     const [ countryRegion, setCountryRegion ] = useState("")
 
     useEffect(() => {
-        fetch("/country-api/public/data.json")
+        fetch("/public/data.json")
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)

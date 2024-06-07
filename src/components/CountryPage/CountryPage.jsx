@@ -124,7 +124,7 @@ function CountryPage() {
                 <div className={`${darkMode ? "text-white" : ""} mt-4 flex flex-col sm:flex-col`}>
                   <span className="hidden mr-3 text-[0.9rem] font-bold lg:text-[0.7rem] lg:text-nowrap sm:flex sm:text-[0.95rem] sm:mb-5">Borders Countries: </span>
                   <div className="grid grid-cols-3 gap-x-2 gap-y-3 items-center md:grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] sm:gap-x-1 sm:w-full mob:grid-cols-2">
-                    <span className="mr-3 text-[0.9rem] font-bold lg:text-[0.7rem] lg:text-nowrap sm:hidden">Borders Countries: </span>              
+                    <span className="mr-3 text-[0.8rem] font-bold lg:text-[1.3vw] lg:text-nowrap md:text-[0.7rem] sm:hidden">Borders Countries: </span>              
                     {borders.map((item, index) => (
                       <button className={`${darkMode ? "text-[#dadada] bg-[#2b3945] shadow-[#00000080]" : "bg-[#fafafa] shadow-[#b4b4b4]"} shadow-[0_0px_3px_1px] shadow-[#0505051f] text-[0.8rem] p-1 lg:text-[0.6rem] lg:min-w-[90%] lg:mr-auto sm:ml-[0] sm:text-[0.8rem] sm:min-w-full mob:text-[0.7rem]`} key={index}>{item}</button>
                   ))}

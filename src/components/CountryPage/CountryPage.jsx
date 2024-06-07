@@ -19,7 +19,7 @@ function CountryPage() {
 
   useEffect(() => {
     async function fetchApi(code) {
-      fetch('/public/data.json')
+      fetch('/data.json')
       .then(response => {
         if (!response.ok) {
           throw new Error('Não foi possivel puxar dados');
